@@ -1,0 +1,26 @@
+# Makefile for C bridge library (Windows)
+
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c99 -O2
+INCLUDES = -I../../include
+LDFLAGS = -shared
+
+# Source files
+BRIDGE_SRC = bridge.c
+SYMBOL_TABLE_SRC = ../../src/symbol_table.c ../../src/hash_table.c ../../src/scope.c ../../src/data_types.c
+
+# Output
+TARGET_LIB = symbol_table.dll
+
+# Default target
+all: $(TARGET_LIB)
+
+# Build shared library
+$(TARGET_LIB): $(BRIDGE_SRC) $(SYMBOL_TABLE_SRC)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(TARGET_LIB) $(BRIDGE_SRC) $(SYMBOL_TABLE_SRC) $(LDFLAGS)
+
+# Clean build files
+clean:
+	if exist $(TARGET_LIB) del $(TARGET_LIB)
+
+.PHONY: all clean
