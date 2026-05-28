@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BarChart3, Code, Moon, Sun, Table, AlertCircle, Hash } from 'lucide-react';
+import { BarChart3, Code, Moon, Sun, Table, AlertCircle, Hash, Binary } from 'lucide-react';
 import SymbolTableGrid from './components/SymbolTableGrid';
 import ScopeTree from './components/ScopeTree';
 import CodeParser from './components/CodeParser';
 import ProblemsPanel from './components/ProblemsPanel';
-import { wsManager, symbolTableAPI, scopeAPI, parseAPI } from './services/api';
+import AdvancedErrorDetection from './components/AdvancedErrorDetection';
+import ParsingTab from './components/ParsingTab';
+import { wsManager, symbolTableAPI, parseAPI } from './services/api';
 
 function App() {
   const [activeTab, setActiveTab] = useState('symbols');
@@ -14,6 +16,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
   const [problems, setProblems] = useState([]);
+  const [parseTree, setParseTree] = useState(null);
   const parserRef = useRef(null);
 
   const [code, setCode] = useState('');
@@ -118,6 +121,12 @@ function App() {
     if (results.problems) {
       setProblems(results.problems);
     }
+    
+    // Set parse tree data if available
+    if (results.parseTree) {
+      setParseTree(results.parseTree);
+    }
+
     fetchSymbols();
     // Only switch to symbols if there are no errors, otherwise stay on problems if they exist
     if (results.problems?.some(p => p.severity === 'error')) {
@@ -186,6 +195,26 @@ function App() {
           onStepComplete={handleStepComplete}
           onReset={handleReset}
           problems={problems}
+        />
+      )
+    },
+    {
+      id: 'parsing',
+      name: 'Parsing',
+      icon: Binary,
+      component: (
+        <ParsingTab />
+      )
+    },
+    {
+      id: 'errors',
+      name: 'Error Detection',
+      icon: AlertCircle,
+      component: (
+        <AdvancedErrorDetection
+          code={code}
+          parseResults={parseTree}
+          symbols={symbols}
         />
       )
     },
@@ -284,138 +313,140 @@ function App() {
       {/* ✅ yaha flex-1 add kiya */}
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-3">
+          <div className={activeTab === 'parsing' ? 'lg:col-span-4' : 'lg:col-span-3'}>
             {tabs.find((tab) => tab.id === activeTab)?.component}
           </div>
 
+          {activeTab !== 'parsing' && (
           <div className="lg:col-span-1">
-            {selectedSymbol && (
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
-                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
-                  Symbol Details
-                </h3>
-                <div className="space-y-3">
-                  <div>
-                    <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                      Name
-                    </label>
-                    <p className="text-gray-900 dark:text-white font-mono">
-                      {selectedSymbol.name}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                      Type
-                    </label>
-                    <p className="text-gray-900 dark:text-white">
-                      {selectedSymbol.data_type}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                      Kind
-                    </label>
-                    <p className="text-gray-900 dark:text-white">
-                      {selectedSymbol.kind}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                      Scope
-                    </label>
-                    <p className="text-gray-900 dark:text-white">
-                      {selectedSymbol.scope_name}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                      Line
-                    </label>
-                    <p className="text-gray-900 dark:text-white">
-                      {selectedSymbol.line_number}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                      Storage Class
-                    </label>
-                    <p className="text-gray-900 dark:text-white">
-                      {selectedSymbol.storage_class}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                      Initialized
-                    </label>
-                    <p className="text-gray-900 dark:text-white">
-                      {selectedSymbol.is_initialized ? 'Yes' : 'No'}
-                    </p>
-                  </div>
-                  {selectedSymbol.initial_value && (
+              {selectedSymbol && (
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+                    Symbol Details
+                  </h3>
+                  <div className="space-y-3">
                     <div>
                       <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        Initial Value
+                        Name
                       </label>
-                      <p className="text-gray-900 dark:text-white font-mono bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
-                        {selectedSymbol.initial_value}
+                      <p className="text-gray-900 dark:text-white font-mono">
+                        {selectedSymbol.name}
                       </p>
                     </div>
-                  )}
+                    <div>
+                      <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                        Type
+                      </label>
+                      <p className="text-gray-900 dark:text-white">
+                        {selectedSymbol.data_type}
+                      </p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                        Kind
+                      </label>
+                      <p className="text-gray-900 dark:text-white">
+                        {selectedSymbol.kind}
+                      </p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                        Scope
+                      </label>
+                      <p className="text-gray-900 dark:text-white">
+                        {selectedSymbol.scope_name}
+                      </p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                        Line
+                      </label>
+                      <p className="text-gray-900 dark:text-white">
+                        {selectedSymbol.line_number}
+                      </p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                        Storage Class
+                      </label>
+                      <p className="text-gray-900 dark:text-white">
+                        {selectedSymbol.storage_class}
+                      </p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                        Initialized
+                      </label>
+                      <p className="text-gray-900 dark:text-white">
+                        {selectedSymbol.is_initialized ? 'Yes' : 'No'}
+                      </p>
+                    </div>
+                    {selectedSymbol.initial_value && (
+                      <div>
+                        <label className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                          Initial Value
+                        </label>
+                        <p className="text-gray-900 dark:text-white font-mono bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                          {selectedSymbol.initial_value}
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-100 dark:border-gray-700 p-6">
-              <h3 className="text-lg font-bold mb-5 flex items-center gap-2 text-gray-900 dark:text-white border-b border-gray-100 dark:border-gray-700 pb-3">
-                <Hash className="h-5 w-5 text-primary-500" />
-                Quick Stats
-              </h3>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">Analysis State</span>
-                  <div className="flex gap-2">
-                    <span title="Errors" className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
-                      🔴 {problems.filter(p => p.severity === 'error').length}
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-100 dark:border-gray-700 p-6">
+                <h3 className="text-lg font-bold mb-5 flex items-center gap-2 text-gray-900 dark:text-white border-b border-gray-100 dark:border-gray-700 pb-3">
+                  <Hash className="h-5 w-5 text-primary-500" />
+                  Quick Stats
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-500 dark:text-gray-400">Analysis State</span>
+                    <div className="flex gap-2">
+                      <span title="Errors" className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
+                        🔴 {problems.filter(p => p.severity === 'error').length}
+                      </span>
+                      <span title="Warnings" className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+                        🟡 {problems.filter(p => p.severity === 'warning').length}
+                      </span>
+                      <span title="Info/Tips" className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                        🔵 {problems.filter(p => p.severity !== 'error' && p.severity !== 'warning').length}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      Current Scope
                     </span>
-                    <span title="Warnings" className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
-                      🟡 {problems.filter(p => p.severity === 'warning').length}
+                    <span className="text-sm font-bold text-gray-900 dark:text-white font-mono bg-gray-50 dark:bg-gray-700 px-2 py-0.5 rounded border border-gray-100 dark:border-gray-600">
+                      {currentScope}
                     </span>
-                    <span title="Info/Tips" className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-                      🔵 {problems.filter(p => p.severity !== 'error' && p.severity !== 'warning').length}
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      Socket Status
+                    </span>
+                    <span
+                      className={`text-sm font-bold flex items-center gap-2 ${wsConnected ? 'text-green-600' : 'text-red-600'
+                        }`}
+                    >
+                      <div className={`h-2 w-2 rounded-full ${wsConnected ? 'bg-green-600 animate-pulse' : 'bg-red-600'}`} />
+                      {wsConnected ? 'Live' : 'Offline'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      UI Mode
+                    </span>
+                    <span className="text-sm font-bold text-gray-900 dark:text-white">
+                      {darkMode ? 'Dark Engine' : 'Light Classic'}
                     </span>
                   </div>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
-                    Current Scope
-                  </span>
-                  <span className="text-sm font-bold text-gray-900 dark:text-white font-mono bg-gray-50 dark:bg-gray-700 px-2 py-0.5 rounded border border-gray-100 dark:border-gray-600">
-                    {currentScope}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
-                    Socket Status
-                  </span>
-                  <span
-                    className={`text-sm font-bold flex items-center gap-2 ${wsConnected ? 'text-green-600' : 'text-red-600'
-                      }`}
-                  >
-                    <div className={`h-2 w-2 rounded-full ${wsConnected ? 'bg-green-600 animate-pulse' : 'bg-red-600'}`} />
-                    {wsConnected ? 'Live' : 'Offline'}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
-                    UI Mode
-                  </span>
-                  <span className="text-sm font-bold text-gray-900 dark:text-white">
-                    {darkMode ? 'Dark Engine' : 'Light Classic'}
-                  </span>
-                </div>
               </div>
-            </div>
           </div>
+          )}
         </div>
       </main>
 

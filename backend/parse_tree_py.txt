@@ -1,0 +1,1971 @@
+Module(
+  body=[
+    Import(
+      names=[
+        alias(name='re')]),
+    Import(
+      names=[
+        alias(name='uuid')]),
+    ImportFrom(
+      module='enum',
+      names=[
+        alias(name='Enum')],
+      level=0),
+    ImportFrom(
+      module='typing',
+      names=[
+        alias(name='List'),
+        alias(name='Dict'),
+        alias(name='Any')],
+      level=0),
+    ClassDef(
+      name='Severity',
+      bases=[
+        Name(id='Enum', ctx=Load())],
+      keywords=[],
+      body=[
+        Assign(
+          targets=[
+            Name(id='ERROR', ctx=Store())],
+          value=Constant(value='error')),
+        Assign(
+          targets=[
+            Name(id='WARNING', ctx=Store())],
+          value=Constant(value='warning')),
+        Assign(
+          targets=[
+            Name(id='INFO', ctx=Store())],
+          value=Constant(value='info')),
+        Assign(
+          targets=[
+            Name(id='SUGGESTION', ctx=Store())],
+          value=Constant(value='suggestion'))],
+      decorator_list=[]),
+    ClassDef(
+      name='Problem',
+      bases=[],
+      keywords=[],
+      body=[
+        FunctionDef(
+          name='__init__',
+          args=arguments(
+            posonlyargs=[],
+            args=[
+              arg(arg='self'),
+              arg(
+                arg='line',
+                annotation=Name(id='int', ctx=Load())),
+              arg(
+                arg='column',
+                annotation=Name(id='int', ctx=Load())),
+              arg(
+                arg='message',
+                annotation=Name(id='str', ctx=Load())),
+              arg(
+                arg='severity',
+                annotation=Name(id='Severity', ctx=Load())),
+              arg(
+                arg='error_id',
+                annotation=Name(id='str', ctx=Load())),
+              arg(
+                arg='scope',
+                annotation=Name(id='str', ctx=Load())),
+              arg(
+                arg='symbol',
+                annotation=Name(id='str', ctx=Load())),
+              arg(
+                arg='code_snippet',
+                annotation=Name(id='str', ctx=Load())),
+              arg(
+                arg='suggestion',
+                annotation=Name(id='str', ctx=Load())),
+              arg(
+                arg='quick_fixes',
+                annotation=Subscript(
+                  value=Name(id='List', ctx=Load()),
+                  slice=Name(id='Dict', ctx=Load()),
+                  ctx=Load()))],
+            kwonlyargs=[],
+            kw_defaults=[],
+            defaults=[
+              Constant(value='global'),
+              Constant(value=None),
+              Constant(value=None),
+              Constant(value=None),
+              Constant(value=None)]),
+          body=[
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='id',
+                  ctx=Store())],
+              value=Call(
+                func=Name(id='str', ctx=Load()),
+                args=[
+                  Call(
+                    func=Attribute(
+                      value=Name(id='uuid', ctx=Load()),
+                      attr='uuid4',
+                      ctx=Load()),
+                    args=[],
+                    keywords=[])],
+                keywords=[])),
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='line',
+                  ctx=Store())],
+              value=Name(id='line', ctx=Load())),
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='column',
+                  ctx=Store())],
+              value=Name(id='column', ctx=Load())),
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='message',
+                  ctx=Store())],
+              value=Name(id='message', ctx=Load())),
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='severity',
+                  ctx=Store())],
+              value=Attribute(
+                value=Name(id='severity', ctx=Load()),
+                attr='value',
+                ctx=Load())),
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='error_id',
+                  ctx=Store())],
+              value=Name(id='error_id', ctx=Load())),
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='scope',
+                  ctx=Store())],
+              value=Name(id='scope', ctx=Load())),
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='symbol',
+                  ctx=Store())],
+              value=Name(id='symbol', ctx=Load())),
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='code_snippet',
+                  ctx=Store())],
+              value=Name(id='code_snippet', ctx=Load())),
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='suggestion',
+                  ctx=Store())],
+              value=Name(id='suggestion', ctx=Load())),
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='quick_fixes',
+                  ctx=Store())],
+              value=BoolOp(
+                op=Or(),
+                values=[
+                  Name(id='quick_fixes', ctx=Load()),
+                  List(elts=[], ctx=Load())]))],
+          decorator_list=[]),
+        FunctionDef(
+          name='to_dict',
+          args=arguments(
+            posonlyargs=[],
+            args=[
+              arg(arg='self')],
+            kwonlyargs=[],
+            kw_defaults=[],
+            defaults=[]),
+          body=[
+            Return(
+              value=Dict(
+                keys=[
+                  Constant(value='id'),
+                  Constant(value='line'),
+                  Constant(value='column'),
+                  Constant(value='message'),
+                  Constant(value='severity'),
+                  Constant(value='error_id'),
+                  Constant(value='scope'),
+                  Constant(value='symbol'),
+                  Constant(value='code'),
+                  Constant(value='suggestion'),
+                  Constant(value='quickFix')],
+                values=[
+                  Attribute(
+                    value=Name(id='self', ctx=Load()),
+                    attr='id',
+                    ctx=Load()),
+                  Attribute(
+                    value=Name(id='self', ctx=Load()),
+                    attr='line',
+                    ctx=Load()),
+                  Attribute(
+                    value=Name(id='self', ctx=Load()),
+                    attr='column',
+                    ctx=Load()),
+                  Attribute(
+                    value=Name(id='self', ctx=Load()),
+                    attr='message',
+                    ctx=Load()),
+                  Attribute(
+                    value=Name(id='self', ctx=Load()),
+                    attr='severity',
+                    ctx=Load()),
+                  Attribute(
+                    value=Name(id='self', ctx=Load()),
+                    attr='error_id',
+                    ctx=Load()),
+                  Attribute(
+                    value=Name(id='self', ctx=Load()),
+                    attr='scope',
+                    ctx=Load()),
+                  Attribute(
+                    value=Name(id='self', ctx=Load()),
+                    attr='symbol',
+                    ctx=Load()),
+                  Attribute(
+                    value=Name(id='self', ctx=Load()),
+                    attr='code_snippet',
+                    ctx=Load()),
+                  Attribute(
+                    value=Name(id='self', ctx=Load()),
+                    attr='suggestion',
+                    ctx=Load()),
+                  Attribute(
+                    value=Name(id='self', ctx=Load()),
+                    attr='quick_fixes',
+                    ctx=Load())]))],
+          decorator_list=[])],
+      decorator_list=[]),
+    ClassDef(
+      name='EnhancedAnalyzer',
+      bases=[],
+      keywords=[],
+      body=[
+        FunctionDef(
+          name='__init__',
+          args=arguments(
+            posonlyargs=[],
+            args=[
+              arg(arg='self')],
+            kwonlyargs=[],
+            kw_defaults=[],
+            defaults=[]),
+          body=[
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='reserved_keywords',
+                  ctx=Store())],
+              value=Set(
+                elts=[
+                  Constant(value='int'),
+                  Constant(value='float'),
+                  Constant(value='char'),
+                  Constant(value='double'),
+                  Constant(value='void'),
+                  Constant(value='long'),
+                  Constant(value='short'),
+                  Constant(value='bool'),
+                  Constant(value='if'),
+                  Constant(value='else'),
+                  Constant(value='for'),
+                  Constant(value='while'),
+                  Constant(value='do'),
+                  Constant(value='switch'),
+                  Constant(value='case'),
+                  Constant(value='default'),
+                  Constant(value='break'),
+                  Constant(value='continue'),
+                  Constant(value='return'),
+                  Constant(value='struct'),
+                  Constant(value='typedef'),
+                  Constant(value='extern'),
+                  Constant(value='static'),
+                  Constant(value='register'),
+                  Constant(value='auto'),
+                  Constant(value='const'),
+                  Constant(value='volatile'),
+                  Constant(value='unsigned'),
+                  Constant(value='signed'),
+                  Constant(value='goto'),
+                  Constant(value='union'),
+                  Constant(value='enum'),
+                  Constant(value='sizeof')])),
+            Assign(
+              targets=[
+                Attribute(
+                  value=Name(id='self', ctx=Load()),
+                  attr='valid_types',
+                  ctx=Store())],
+              value=Set(
+                elts=[
+                  Constant(value='int'),
+                  Constant(value='float'),
+                  Constant(value='char'),
+                  Constant(value='double'),
+                  Constant(value='void'),
+                  Constant(value='bool'),
+                  Constant(value='long'),
+                  Constant(value='short')]))],
+          decorator_list=[]),
+        FunctionDef(
+          name='analyze',
+          args=arguments(
+            posonlyargs=[],
+            args=[
+              arg(arg='self'),
+              arg(
+                arg='code',
+                annotation=Name(id='str', ctx=Load()))],
+            kwonlyargs=[],
+            kw_defaults=[],
+            defaults=[]),
+          body=[
+            Assign(
+              targets=[
+                Name(id='problems', ctx=Store())],
+              value=List(elts=[], ctx=Load())),
+            If(
+              test=UnaryOp(
+                op=Not(),
+                operand=Call(
+                  func=Attribute(
+                    value=Name(id='code', ctx=Load()),
+                    attr='strip',
+                    ctx=Load()),
+                  args=[],
+                  keywords=[])),
+              body=[
+                Return(
+                  value=List(elts=[], ctx=Load()))],
+              orelse=[]),
+            Assign(
+              targets=[
+                Name(id='lines', ctx=Store())],
+              value=Call(
+                func=Attribute(
+                  value=Name(id='code', ctx=Load()),
+                  attr='split',
+                  ctx=Load()),
+                args=[
+                  Constant(value='\n')],
+                keywords=[])),
+            Assign(
+              targets=[
+                Name(id='scope_stack', ctx=Store())],
+              value=List(
+                elts=[
+                  Dict(
+                    keys=[
+                      Constant(value='name'),
+                      Constant(value='symbols'),
+                      Constant(value='level')],
+                    values=[
+                      Constant(value='global'),
+                      Dict(keys=[], values=[]),
+                      Constant(value=0)])],
+                ctx=Load())),
+            Assign(
+              targets=[
+                Name(id='all_symbols', ctx=Store())],
+              value=Dict(keys=[], values=[])),
+            Assign(
+              targets=[
+                Name(id='type_pattern', ctx=Store())],
+              value=BinOp(
+                left=BinOp(
+                  left=Constant(value='\\b('),
+                  op=Add(),
+                  right=Call(
+                    func=Attribute(
+                      value=Constant(value='|'),
+                      attr='join',
+                      ctx=Load()),
+                    args=[
+                      Attribute(
+                        value=Name(id='self', ctx=Load()),
+                        attr='valid_types',
+                        ctx=Load())],
+                    keywords=[])),
+                op=Add(),
+                right=Constant(value=')\\b'))),
+            Assign(
+              targets=[
+                Name(id='ident_pattern', ctx=Store())],
+              value=Constant(value='\\b([a-zA-Z_][a-zA-Z0-9_]*)\\b')),
+            Assign(
+              targets=[
+                Name(id='brace_level', ctx=Store())],
+              value=Constant(value=0)),
+            Assign(
+              targets=[
+                Name(id='open_braces_pos', ctx=Store())],
+              value=List(elts=[], ctx=Load())),
+            Assign(
+              targets=[
+                Name(id='parens_level', ctx=Store())],
+              value=Constant(value=0)),
+            For(
+              target=Tuple(
+                elts=[
+                  Name(id='i', ctx=Store()),
+                  Name(id='line_content', ctx=Store())],
+                ctx=Store()),
+              iter=Call(
+                func=Name(id='enumerate', ctx=Load()),
+                args=[
+                  Name(id='lines', ctx=Load()),
+                  Constant(value=1)],
+                keywords=[]),
+              body=[
+                Assign(
+                  targets=[
+                    Name(id='clean_line', ctx=Store())],
+                  value=Call(
+                    func=Attribute(
+                      value=Subscript(
+                        value=Call(
+                          func=Attribute(
+                            value=Name(id='line_content', ctx=Load()),
+                            attr='split',
+                            ctx=Load()),
+                          args=[
+                            Constant(value='//')],
+                          keywords=[]),
+                        slice=Constant(value=0),
+                        ctx=Load()),
+                      attr='strip',
+                      ctx=Load()),
+                    args=[],
+                    keywords=[])),
+                Assign(
+                  targets=[
+                    Name(id='full_line', ctx=Store())],
+                  value=Subscript(
+                    value=Call(
+                      func=Attribute(
+                        value=Name(id='line_content', ctx=Load()),
+                        attr='split',
+                        ctx=Load()),
+                      args=[
+                        Constant(value='//')],
+                      keywords=[]),
+                    slice=Constant(value=0),
+                    ctx=Load())),
+                If(
+                  test=UnaryOp(
+                    op=Not(),
+                    operand=Name(id='clean_line', ctx=Load())),
+                  body=[
+                    Continue()],
+                  orelse=[]),
+                For(
+                  target=Tuple(
+                    elts=[
+                      Name(id='idx', ctx=Store()),
+                      Name(id='char', ctx=Store())],
+                    ctx=Store()),
+                  iter=Call(
+                    func=Name(id='enumerate', ctx=Load()),
+                    args=[
+                      Name(id='full_line', ctx=Load())],
+                    keywords=[]),
+                  body=[
+                    If(
+                      test=Compare(
+                        left=Name(id='char', ctx=Load()),
+                        ops=[
+                          Eq()],
+                        comparators=[
+                          Constant(value='{')]),
+                      body=[
+                        AugAssign(
+                          target=Name(id='brace_level', ctx=Store()),
+                          op=Add(),
+                          value=Constant(value=1)),
+                        Expr(
+                          value=Call(
+                            func=Attribute(
+                              value=Name(id='open_braces_pos', ctx=Load()),
+                              attr='append',
+                              ctx=Load()),
+                            args=[
+                              Name(id='i', ctx=Load())],
+                            keywords=[])),
+                        Expr(
+                          value=Call(
+                            func=Attribute(
+                              value=Name(id='scope_stack', ctx=Load()),
+                              attr='append',
+                              ctx=Load()),
+                            args=[
+                              Dict(
+                                keys=[
+                                  Constant(value='name'),
+                                  Constant(value='symbols'),
+                                  Constant(value='level')],
+                                values=[
+                                  JoinedStr(
+                                    values=[
+                                      Constant(value='block_L'),
+                                      FormattedValue(
+                                        value=Name(id='i', ctx=Load()),
+                                        conversion=-1)]),
+                                  Dict(keys=[], values=[]),
+                                  Name(id='brace_level', ctx=Load())])],
+                            keywords=[]))],
+                      orelse=[
+                        If(
+                          test=Compare(
+                            left=Name(id='char', ctx=Load()),
+                            ops=[
+                              Eq()],
+                            comparators=[
+                              Constant(value='}')]),
+                          body=[
+                            If(
+                              test=Compare(
+                                left=Name(id='brace_level', ctx=Load()),
+                                ops=[
+                                  Gt()],
+                                comparators=[
+                                  Constant(value=0)]),
+                              body=[
+                                AugAssign(
+                                  target=Name(id='brace_level', ctx=Store()),
+                                  op=Sub(),
+                                  value=Constant(value=1)),
+                                Expr(
+                                  value=Call(
+                                    func=Attribute(
+                                      value=Name(id='open_braces_pos', ctx=Load()),
+                                      attr='pop',
+                                      ctx=Load()),
+                                    args=[],
+                                    keywords=[])),
+                                Expr(
+                                  value=Call(
+                                    func=Attribute(
+                                      value=Name(id='scope_stack', ctx=Load()),
+                                      attr='pop',
+                                      ctx=Load()),
+                                    args=[],
+                                    keywords=[]))],
+                              orelse=[
+                                Expr(
+                                  value=Call(
+                                    func=Attribute(
+                                      value=Name(id='problems', ctx=Load()),
+                                      attr='append',
+                                      ctx=Load()),
+                                    args=[
+                                      Call(
+                                        func=Attribute(
+                                          value=Call(
+                                            func=Name(id='Problem', ctx=Load()),
+                                            args=[
+                                              Name(id='i', ctx=Load()),
+                                              BinOp(
+                                                left=Name(id='idx', ctx=Load()),
+                                                op=Add(),
+                                                right=Constant(value=1)),
+                                              Constant(value="Extra closing brace '}' found"),
+                                              Attribute(
+                                                value=Name(id='Severity', ctx=Load()),
+                                                attr='ERROR',
+                                                ctx=Load()),
+                                              Constant(value='SYNTAX_EXTRA_BRACE')],
+                                            keywords=[
+                                              keyword(
+                                                arg='suggestion',
+                                                value=Constant(value="Remove the extra '}' or ensure matching '{'"))]),
+                                          attr='to_dict',
+                                          ctx=Load()),
+                                        args=[],
+                                        keywords=[])],
+                                    keywords=[]))])],
+                          orelse=[
+                            If(
+                              test=Compare(
+                                left=Name(id='char', ctx=Load()),
+                                ops=[
+                                  Eq()],
+                                comparators=[
+                                  Constant(value='(')]),
+                              body=[
+                                AugAssign(
+                                  target=Name(id='parens_level', ctx=Store()),
+                                  op=Add(),
+                                  value=Constant(value=1))],
+                              orelse=[
+                                If(
+                                  test=Compare(
+                                    left=Name(id='char', ctx=Load()),
+                                    ops=[
+                                      Eq()],
+                                    comparators=[
+                                      Constant(value=')')]),
+                                  body=[
+                                    If(
+                                      test=Compare(
+                                        left=Name(id='parens_level', ctx=Load()),
+                                        ops=[
+                                          Gt()],
+                                        comparators=[
+                                          Constant(value=0)]),
+                                      body=[
+                                        AugAssign(
+                                          target=Name(id='parens_level', ctx=Store()),
+                                          op=Sub(),
+                                          value=Constant(value=1))],
+                                      orelse=[
+                                        Expr(
+                                          value=Call(
+                                            func=Attribute(
+                                              value=Name(id='problems', ctx=Load()),
+                                              attr='append',
+                                              ctx=Load()),
+                                            args=[
+                                              Call(
+                                                func=Attribute(
+                                                  value=Call(
+                                                    func=Name(id='Problem', ctx=Load()),
+                                                    args=[
+                                                      Name(id='i', ctx=Load()),
+                                                      BinOp(
+                                                        left=Name(id='idx', ctx=Load()),
+                                                        op=Add(),
+                                                        right=Constant(value=1)),
+                                                      Constant(value="Mismatched parenthesis: extra ')'"),
+                                                      Attribute(
+                                                        value=Name(id='Severity', ctx=Load()),
+                                                        attr='ERROR',
+                                                        ctx=Load()),
+                                                      Constant(value='SYNTAX_EXTRA_PAREN')],
+                                                    keywords=[
+                                                      keyword(
+                                                        arg='suggestion',
+                                                        value=Constant(value="Check for a missing '('"))]),
+                                                  attr='to_dict',
+                                                  ctx=Load()),
+                                                args=[],
+                                                keywords=[])],
+                                            keywords=[]))])],
+                                  orelse=[])])])])],
+                  orelse=[]),
+                Assign(
+                  targets=[
+                    Name(id='func_decl_incomplete', ctx=Store())],
+                  value=Call(
+                    func=Attribute(
+                      value=Name(id='re', ctx=Load()),
+                      attr='search',
+                      ctx=Load()),
+                    args=[
+                      BinOp(
+                        left=BinOp(
+                          left=BinOp(
+                            left=Name(id='type_pattern', ctx=Load()),
+                            op=Add(),
+                            right=Constant(value='\\s+')),
+                          op=Add(),
+                          right=Name(id='ident_pattern', ctx=Load())),
+                        op=Add(),
+                        right=Constant(value='\\s*\\(\\s*$')),
+                      Name(id='clean_line', ctx=Load())],
+                    keywords=[])),
+                If(
+                  test=Name(id='func_decl_incomplete', ctx=Load()),
+                  body=[
+                    Expr(
+                      value=Call(
+                        func=Attribute(
+                          value=Name(id='problems', ctx=Load()),
+                          attr='append',
+                          ctx=Load()),
+                        args=[
+                          Call(
+                            func=Attribute(
+                              value=Call(
+                                func=Name(id='Problem', ctx=Load()),
+                                args=[
+                                  Name(id='i', ctx=Load()),
+                                  BinOp(
+                                    left=Call(
+                                      func=Attribute(
+                                        value=Name(id='full_line', ctx=Load()),
+                                        attr='find',
+                                        ctx=Load()),
+                                      args=[
+                                        Constant(value='(')],
+                                      keywords=[]),
+                                    op=Add(),
+                                    right=Constant(value=1)),
+                                  Constant(value="Incomplete function declaration: expected ')' and body"),
+                                  Attribute(
+                                    value=Name(id='Severity', ctx=Load()),
+                                    attr='ERROR',
+                                    ctx=Load()),
+                                  Constant(value='SYNTAX_INCOMPLETE_FUNC')],
+                                keywords=[
+                                  keyword(
+                                    arg='suggestion',
+                                    value=Constant(value="Add closing ')' and function body '{ ... }'")),
+                                  keyword(
+                                    arg='code_snippet',
+                                    value=Name(id='clean_line', ctx=Load()))]),
+                              attr='to_dict',
+                              ctx=Load()),
+                            args=[],
+                            keywords=[])],
+                        keywords=[]))],
+                  orelse=[]),
+                If(
+                  test=BoolOp(
+                    op=And(),
+                    values=[
+                      Name(id='clean_line', ctx=Load()),
+                      UnaryOp(
+                        op=Not(),
+                        operand=Call(
+                          func=Name(id='any', ctx=Load()),
+                          args=[
+                            GeneratorExp(
+                              elt=Call(
+                                func=Attribute(
+                                  value=Name(id='clean_line', ctx=Load()),
+                                  attr='endswith',
+                                  ctx=Load()),
+                                args=[
+                                  Name(id='x', ctx=Load())],
+                                keywords=[]),
+                              generators=[
+                                comprehension(
+                                  target=Name(id='x', ctx=Store()),
+                                  iter=List(
+                                    elts=[
+                                      Constant(value='{'),
+                                      Constant(value='}'),
+                                      Constant(value=';'),
+                                      Constant(value=':'),
+                                      Constant(value=',')],
+                                    ctx=Load()),
+                                  ifs=[],
+                                  is_async=0)])],
+                          keywords=[])),
+                      UnaryOp(
+                        op=Not(),
+                        operand=Call(
+                          func=Name(id='any', ctx=Load()),
+                          args=[
+                            GeneratorExp(
+                              elt=Call(
+                                func=Attribute(
+                                  value=Name(id='clean_line', ctx=Load()),
+                                  attr='startswith',
+                                  ctx=Load()),
+                                args=[
+                                  Name(id='x', ctx=Load())],
+                                keywords=[]),
+                              generators=[
+                                comprehension(
+                                  target=Name(id='x', ctx=Store()),
+                                  iter=List(
+                                    elts=[
+                                      Constant(value='#'),
+                                      Constant(value='if'),
+                                      Constant(value='for'),
+                                      Constant(value='while'),
+                                      Constant(value='switch'),
+                                      Constant(value='else')],
+                                    ctx=Load()),
+                                  ifs=[],
+                                  is_async=0)])],
+                          keywords=[]))]),
+                  body=[
+                    If(
+                      test=BoolOp(
+                        op=And(),
+                        values=[
+                          Compare(
+                            left=Constant(value='('),
+                            ops=[
+                              In()],
+                            comparators=[
+                              Name(id='clean_line', ctx=Load())]),
+                          Compare(
+                            left=Constant(value=')'),
+                            ops=[
+                              NotIn()],
+                            comparators=[
+                              Name(id='clean_line', ctx=Load())])]),
+                      body=[
+                        Pass()],
+                      orelse=[
+                        If(
+                          test=BoolOp(
+                            op=And(),
+                            values=[
+                              Compare(
+                                left=Constant(value='('),
+                                ops=[
+                                  In()],
+                                comparators=[
+                                  Name(id='clean_line', ctx=Load())]),
+                              Compare(
+                                left=Constant(value=')'),
+                                ops=[
+                                  In()],
+                                comparators=[
+                                  Name(id='clean_line', ctx=Load())]),
+                              Compare(
+                                left=Constant(value='{'),
+                                ops=[
+                                  NotIn()],
+                                comparators=[
+                                  Name(id='clean_line', ctx=Load())])]),
+                          body=[
+                            Expr(
+                              value=Call(
+                                func=Attribute(
+                                  value=Name(id='problems', ctx=Load()),
+                                  attr='append',
+                                  ctx=Load()),
+                                args=[
+                                  Call(
+                                    func=Attribute(
+                                      value=Call(
+                                        func=Name(id='Problem', ctx=Load()),
+                                        args=[
+                                          Name(id='i', ctx=Load()),
+                                          Call(
+                                            func=Name(id='len', ctx=Load()),
+                                            args=[
+                                              Name(id='full_line', ctx=Load())],
+                                            keywords=[]),
+                                          Constant(value="Possible missing semicolon ';' or function body '{'"),
+                                          Attribute(
+                                            value=Name(id='Severity', ctx=Load()),
+                                            attr='ERROR',
+                                            ctx=Load()),
+                                          Constant(value='SYNTAX_MISSING_SEMI')],
+                                        keywords=[
+                                          keyword(
+                                            arg='suggestion',
+                                            value=Constant(value="Add ';' at end of statement or '{' to start function body"))]),
+                                      attr='to_dict',
+                                      ctx=Load()),
+                                    args=[],
+                                    keywords=[])],
+                                keywords=[]))],
+                          orelse=[
+                            Expr(
+                              value=Call(
+                                func=Attribute(
+                                  value=Name(id='problems', ctx=Load()),
+                                  attr='append',
+                                  ctx=Load()),
+                                args=[
+                                  Call(
+                                    func=Attribute(
+                                      value=Call(
+                                        func=Name(id='Problem', ctx=Load()),
+                                        args=[
+                                          Name(id='i', ctx=Load()),
+                                          Call(
+                                            func=Name(id='len', ctx=Load()),
+                                            args=[
+                                              Name(id='full_line', ctx=Load())],
+                                            keywords=[]),
+                                          Constant(value="Expected semicolon ';' at end of statement"),
+                                          Attribute(
+                                            value=Name(id='Severity', ctx=Load()),
+                                            attr='ERROR',
+                                            ctx=Load()),
+                                          Constant(value='SYNTAX_MISSING_SEMI')],
+                                        keywords=[
+                                          keyword(
+                                            arg='suggestion',
+                                            value=Constant(value="Add ';' to terminate this statement"))]),
+                                      attr='to_dict',
+                                      ctx=Load()),
+                                    args=[],
+                                    keywords=[])],
+                                keywords=[]))])])],
+                  orelse=[]),
+                Assign(
+                  targets=[
+                    Name(id='decl_match', ctx=Store())],
+                  value=Call(
+                    func=Attribute(
+                      value=Name(id='re', ctx=Load()),
+                      attr='search',
+                      ctx=Load()),
+                    args=[
+                      BinOp(
+                        left=BinOp(
+                          left=BinOp(
+                            left=Name(id='type_pattern', ctx=Load()),
+                            op=Add(),
+                            right=Constant(value='\\s+')),
+                          op=Add(),
+                          right=Name(id='ident_pattern', ctx=Load())),
+                        op=Add(),
+                        right=Constant(value='(\\s*[\\(;,=])')),
+                      Name(id='clean_line', ctx=Load())],
+                    keywords=[])),
+                If(
+                  test=Name(id='decl_match', ctx=Load()),
+                  body=[
+                    Assign(
+                      targets=[
+                        Name(id='d_type', ctx=Store())],
+                      value=Call(
+                        func=Attribute(
+                          value=Name(id='decl_match', ctx=Load()),
+                          attr='group',
+                          ctx=Load()),
+                        args=[
+                          Constant(value=1)],
+                        keywords=[])),
+                    Assign(
+                      targets=[
+                        Name(id='name', ctx=Store())],
+                      value=Call(
+                        func=Attribute(
+                          value=Name(id='decl_match', ctx=Load()),
+                          attr='group',
+                          ctx=Load()),
+                        args=[
+                          Constant(value=2)],
+                        keywords=[])),
+                    Assign(
+                      targets=[
+                        Name(id='suffix', ctx=Store())],
+                      value=Call(
+                        func=Attribute(
+                          value=Call(
+                            func=Attribute(
+                              value=Name(id='decl_match', ctx=Load()),
+                              attr='group',
+                              ctx=Load()),
+                            args=[
+                              Constant(value=3)],
+                            keywords=[]),
+                          attr='strip',
+                          ctx=Load()),
+                        args=[],
+                        keywords=[])),
+                    Assign(
+                      targets=[
+                        Name(id='invalid_ident', ctx=Store())],
+                      value=Call(
+                        func=Attribute(
+                          value=Name(id='re', ctx=Load()),
+                          attr='search',
+                          ctx=Load()),
+                        args=[
+                          Constant(value='\\b(\\d+[a-zA-Z_]\\w*)\\b'),
+                          Name(id='full_line', ctx=Load())],
+                        keywords=[])),
+                    If(
+                      test=Name(id='invalid_ident', ctx=Load()),
+                      body=[
+                        Expr(
+                          value=Call(
+                            func=Attribute(
+                              value=Name(id='problems', ctx=Load()),
+                              attr='append',
+                              ctx=Load()),
+                            args=[
+                              Call(
+                                func=Attribute(
+                                  value=Call(
+                                    func=Name(id='Problem', ctx=Load()),
+                                    args=[
+                                      Name(id='i', ctx=Load()),
+                                      Call(
+                                        func=Attribute(
+                                          value=Name(id='invalid_ident', ctx=Load()),
+                                          attr='start',
+                                          ctx=Load()),
+                                        args=[],
+                                        keywords=[]),
+                                      JoinedStr(
+                                        values=[
+                                          Constant(value="Invalid identifier '"),
+                                          FormattedValue(
+                                            value=Call(
+                                              func=Attribute(
+                                                value=Name(id='invalid_ident', ctx=Load()),
+                                                attr='group',
+                                                ctx=Load()),
+                                              args=[
+                                                Constant(value=1)],
+                                              keywords=[]),
+                                            conversion=-1),
+                                          Constant(value="': Cannot start with a number")]),
+                                      Attribute(
+                                        value=Name(id='Severity', ctx=Load()),
+                                        attr='ERROR',
+                                        ctx=Load()),
+                                      Constant(value='DECL_INVALID_NAME')],
+                                    keywords=[]),
+                                  attr='to_dict',
+                                  ctx=Load()),
+                                args=[],
+                                keywords=[])],
+                            keywords=[]))],
+                      orelse=[]),
+                    If(
+                      test=Compare(
+                        left=Name(id='name', ctx=Load()),
+                        ops=[
+                          In()],
+                        comparators=[
+                          Attribute(
+                            value=Name(id='self', ctx=Load()),
+                            attr='reserved_keywords',
+                            ctx=Load())]),
+                      body=[
+                        Expr(
+                          value=Call(
+                            func=Attribute(
+                              value=Name(id='problems', ctx=Load()),
+                              attr='append',
+                              ctx=Load()),
+                            args=[
+                              Call(
+                                func=Attribute(
+                                  value=Call(
+                                    func=Name(id='Problem', ctx=Load()),
+                                    args=[
+                                      Name(id='i', ctx=Load()),
+                                      Call(
+                                        func=Attribute(
+                                          value=Name(id='decl_match', ctx=Load()),
+                                          attr='start',
+                                          ctx=Load()),
+                                        args=[
+                                          Constant(value=2)],
+                                        keywords=[]),
+                                      JoinedStr(
+                                        values=[
+                                          Constant(value="'"),
+                                          FormattedValue(
+                                            value=Name(id='name', ctx=Load()),
+                                            conversion=-1),
+                                          Constant(value="' is a C reserved keyword")]),
+                                      Attribute(
+                                        value=Name(id='Severity', ctx=Load()),
+                                        attr='ERROR',
+                                        ctx=Load()),
+                                      Constant(value='DECL_RESERVED')],
+                                    keywords=[
+                                      keyword(
+                                        arg='suggestion',
+                                        value=BinOp(
+                                          left=BinOp(
+                                            left=Constant(value="Choose a different name like '"),
+                                            op=Add(),
+                                            right=Name(id='name', ctx=Load())),
+                                          op=Add(),
+                                          right=Constant(value="_'")))]),
+                                  attr='to_dict',
+                                  ctx=Load()),
+                                args=[],
+                                keywords=[])],
+                            keywords=[]))],
+                      orelse=[]),
+                    Assign(
+                      targets=[
+                        Name(id='is_redeclared', ctx=Store())],
+                      value=Constant(value=False)),
+                    Assign(
+                      targets=[
+                        Name(id='current_scope', ctx=Store())],
+                      value=Subscript(
+                        value=Name(id='scope_stack', ctx=Load()),
+                        slice=UnaryOp(
+                          op=USub(),
+                          operand=Constant(value=1)),
+                        ctx=Load())),
+                    If(
+                      test=Compare(
+                        left=Name(id='name', ctx=Load()),
+                        ops=[
+                          In()],
+                        comparators=[
+                          Subscript(
+                            value=Name(id='current_scope', ctx=Load()),
+                            slice=Constant(value='symbols'),
+                            ctx=Load())]),
+                      body=[
+                        Assign(
+                          targets=[
+                            Name(id='prev_line', ctx=Store())],
+                          value=Subscript(
+                            value=Subscript(
+                              value=Subscript(
+                                value=Name(id='current_scope', ctx=Load()),
+                                slice=Constant(value='symbols'),
+                                ctx=Load()),
+                              slice=Name(id='name', ctx=Load()),
+                              ctx=Load()),
+                            slice=Constant(value='line'),
+                            ctx=Load())),
+                        Expr(
+                          value=Call(
+                            func=Attribute(
+                              value=Name(id='problems', ctx=Load()),
+                              attr='append',
+                              ctx=Load()),
+                            args=[
+                              Call(
+                                func=Attribute(
+                                  value=Call(
+                                    func=Name(id='Problem', ctx=Load()),
+                                    args=[
+                                      Name(id='i', ctx=Load()),
+                                      Call(
+                                        func=Attribute(
+                                          value=Name(id='decl_match', ctx=Load()),
+                                          attr='start',
+                                          ctx=Load()),
+                                        args=[
+                                          Constant(value=2)],
+                                        keywords=[]),
+                                      JoinedStr(
+                                        values=[
+                                          Constant(value="Redeclaration of '"),
+                                          FormattedValue(
+                                            value=Name(id='name', ctx=Load()),
+                                            conversion=-1),
+                                          Constant(value="' in this scope (previous at line "),
+                                          FormattedValue(
+                                            value=Name(id='prev_line', ctx=Load()),
+                                            conversion=-1),
+                                          Constant(value=')')]),
+                                      Attribute(
+                                        value=Name(id='Severity', ctx=Load()),
+                                        attr='ERROR',
+                                        ctx=Load()),
+                                      Constant(value='DECL_DUP')],
+                                    keywords=[
+                                      keyword(
+                                        arg='symbol',
+                                        value=Name(id='name', ctx=Load()))]),
+                                  attr='to_dict',
+                                  ctx=Load()),
+                                args=[],
+                                keywords=[])],
+                            keywords=[])),
+                        Assign(
+                          targets=[
+                            Name(id='is_redeclared', ctx=Store())],
+                          value=Constant(value=True))],
+                      orelse=[
+                        For(
+                          target=Name(id='scope', ctx=Store()),
+                          iter=Call(
+                            func=Name(id='reversed', ctx=Load()),
+                            args=[
+                              Subscript(
+                                value=Name(id='scope_stack', ctx=Load()),
+                                slice=Slice(
+                                  upper=UnaryOp(
+                                    op=USub(),
+                                    operand=Constant(value=1))),
+                                ctx=Load())],
+                            keywords=[]),
+                          body=[
+                            If(
+                              test=Compare(
+                                left=Name(id='name', ctx=Load()),
+                                ops=[
+                                  In()],
+                                comparators=[
+                                  Subscript(
+                                    value=Name(id='scope', ctx=Load()),
+                                    slice=Constant(value='symbols'),
+                                    ctx=Load())]),
+                              body=[
+                                Expr(
+                                  value=Call(
+                                    func=Attribute(
+                                      value=Name(id='problems', ctx=Load()),
+                                      attr='append',
+                                      ctx=Load()),
+                                    args=[
+                                      Call(
+                                        func=Attribute(
+                                          value=Call(
+                                            func=Name(id='Problem', ctx=Load()),
+                                            args=[
+                                              Name(id='i', ctx=Load()),
+                                              Call(
+                                                func=Attribute(
+                                                  value=Name(id='decl_match', ctx=Load()),
+                                                  attr='start',
+                                                  ctx=Load()),
+                                                args=[
+                                                  Constant(value=2)],
+                                                keywords=[]),
+                                              JoinedStr(
+                                                values=[
+                                                  Constant(value="Variable '"),
+                                                  FormattedValue(
+                                                    value=Name(id='name', ctx=Load()),
+                                                    conversion=-1),
+                                                  Constant(value="' shadows a variable from parent scope '"),
+                                                  FormattedValue(
+                                                    value=Subscript(
+                                                      value=Name(id='scope', ctx=Load()),
+                                                      slice=Constant(value='name'),
+                                                      ctx=Load()),
+                                                    conversion=-1),
+                                                  Constant(value="'")]),
+                                              Attribute(
+                                                value=Name(id='Severity', ctx=Load()),
+                                                attr='WARNING',
+                                                ctx=Load()),
+                                              Constant(value='SCOPE_SHADOWING')],
+                                            keywords=[
+                                              keyword(
+                                                arg='symbol',
+                                                value=Name(id='name', ctx=Load())),
+                                              keyword(
+                                                arg='suggestion',
+                                                value=Constant(value='Rename to avoid confusion with parent scope'))]),
+                                          attr='to_dict',
+                                          ctx=Load()),
+                                        args=[],
+                                        keywords=[])],
+                                    keywords=[])),
+                                Break()],
+                              orelse=[])],
+                          orelse=[])]),
+                    If(
+                      test=UnaryOp(
+                        op=Not(),
+                        operand=Name(id='is_redeclared', ctx=Load())),
+                      body=[
+                        Assign(
+                          targets=[
+                            Subscript(
+                              value=Subscript(
+                                value=Name(id='current_scope', ctx=Load()),
+                                slice=Constant(value='symbols'),
+                                ctx=Load()),
+                              slice=Name(id='name', ctx=Load()),
+                              ctx=Store())],
+                          value=Dict(
+                            keys=[
+                              Constant(value='line'),
+                              Constant(value='type')],
+                            values=[
+                              Name(id='i', ctx=Load()),
+                              Name(id='d_type', ctx=Load())])),
+                        Assign(
+                          targets=[
+                            Subscript(
+                              value=Name(id='all_symbols', ctx=Load()),
+                              slice=Name(id='name', ctx=Load()),
+                              ctx=Store())],
+                          value=Dict(
+                            keys=[
+                              Constant(value='line'),
+                              Constant(value='type'),
+                              Constant(value='used'),
+                              Constant(value='initialized'),
+                              Constant(value='kind'),
+                              Constant(value='scope')],
+                            values=[
+                              Name(id='i', ctx=Load()),
+                              Name(id='d_type', ctx=Load()),
+                              Constant(value=False),
+                              BoolOp(
+                                op=Or(),
+                                values=[
+                                  Compare(
+                                    left=Constant(value='='),
+                                    ops=[
+                                      In()],
+                                    comparators=[
+                                      Name(id='suffix', ctx=Load())]),
+                                  Compare(
+                                    left=Constant(value='('),
+                                    ops=[
+                                      In()],
+                                    comparators=[
+                                      Name(id='suffix', ctx=Load())])]),
+                              IfExp(
+                                test=Compare(
+                                  left=Constant(value='('),
+                                  ops=[
+                                    In()],
+                                  comparators=[
+                                    Name(id='suffix', ctx=Load())]),
+                                body=Constant(value='function'),
+                                orelse=Constant(value='variable')),
+                              Subscript(
+                                value=Name(id='current_scope', ctx=Load()),
+                                slice=Constant(value='name'),
+                                ctx=Load())]))],
+                      orelse=[])],
+                  orelse=[]),
+                If(
+                  test=BoolOp(
+                    op=And(),
+                    values=[
+                      Compare(
+                        left=Constant(value='='),
+                        ops=[
+                          In()],
+                        comparators=[
+                          Name(id='clean_line', ctx=Load())]),
+                      UnaryOp(
+                        op=Not(),
+                        operand=Name(id='decl_match', ctx=Load()))]),
+                  body=[
+                    Assign(
+                      targets=[
+                        Name(id='assign_match', ctx=Store())],
+                      value=Call(
+                        func=Attribute(
+                          value=Name(id='re', ctx=Load()),
+                          attr='search',
+                          ctx=Load()),
+                        args=[
+                          Constant(value='\\b([a-zA-Z_]\\w*)\\s*=\\s*(.*);'),
+                          Name(id='clean_line', ctx=Load())],
+                        keywords=[])),
+                    If(
+                      test=Name(id='assign_match', ctx=Load()),
+                      body=[
+                        Assign(
+                          targets=[
+                            Name(id='var_name', ctx=Store())],
+                          value=Call(
+                            func=Attribute(
+                              value=Name(id='assign_match', ctx=Load()),
+                              attr='group',
+                              ctx=Load()),
+                            args=[
+                              Constant(value=1)],
+                            keywords=[])),
+                        Assign(
+                          targets=[
+                            Name(id='val', ctx=Store())],
+                          value=Call(
+                            func=Attribute(
+                              value=Call(
+                                func=Attribute(
+                                  value=Name(id='assign_match', ctx=Load()),
+                                  attr='group',
+                                  ctx=Load()),
+                                args=[
+                                  Constant(value=2)],
+                                keywords=[]),
+                              attr='strip',
+                              ctx=Load()),
+                            args=[],
+                            keywords=[])),
+                        If(
+                          test=Compare(
+                            left=Name(id='var_name', ctx=Load()),
+                            ops=[
+                              In()],
+                            comparators=[
+                              Name(id='all_symbols', ctx=Load())]),
+                          body=[
+                            Assign(
+                              targets=[
+                                Subscript(
+                                  value=Subscript(
+                                    value=Name(id='all_symbols', ctx=Load()),
+                                    slice=Name(id='var_name', ctx=Load()),
+                                    ctx=Load()),
+                                  slice=Constant(value='initialized'),
+                                  ctx=Store())],
+                              value=Constant(value=True)),
+                            Assign(
+                              targets=[
+                                Name(id='v_type', ctx=Store())],
+                              value=Subscript(
+                                value=Subscript(
+                                  value=Name(id='all_symbols', ctx=Load()),
+                                  slice=Name(id='var_name', ctx=Load()),
+                                  ctx=Load()),
+                                slice=Constant(value='type'),
+                                ctx=Load())),
+                            If(
+                              test=BoolOp(
+                                op=And(),
+                                values=[
+                                  Compare(
+                                    left=Name(id='v_type', ctx=Load()),
+                                    ops=[
+                                      Eq()],
+                                    comparators=[
+                                      Constant(value='int')]),
+                                  BoolOp(
+                                    op=Or(),
+                                    values=[
+                                      Call(
+                                        func=Attribute(
+                                          value=Name(id='val', ctx=Load()),
+                                          attr='startswith',
+                                          ctx=Load()),
+                                        args=[
+                                          Constant(value='"')],
+                                        keywords=[]),
+                                      Call(
+                                        func=Attribute(
+                                          value=Name(id='val', ctx=Load()),
+                                          attr='startswith',
+                                          ctx=Load()),
+                                        args=[
+                                          Constant(value="'")],
+                                        keywords=[])])]),
+                              body=[
+                                Expr(
+                                  value=Call(
+                                    func=Attribute(
+                                      value=Name(id='problems', ctx=Load()),
+                                      attr='append',
+                                      ctx=Load()),
+                                    args=[
+                                      Call(
+                                        func=Attribute(
+                                          value=Call(
+                                            func=Name(id='Problem', ctx=Load()),
+                                            args=[
+                                              Name(id='i', ctx=Load()),
+                                              Call(
+                                                func=Attribute(
+                                                  value=Name(id='assign_match', ctx=Load()),
+                                                  attr='start',
+                                                  ctx=Load()),
+                                                args=[
+                                                  Constant(value=2)],
+                                                keywords=[]),
+                                              JoinedStr(
+                                                values=[
+                                                  Constant(value="Type mismatch: cannot assign string/char literal to int variable '"),
+                                                  FormattedValue(
+                                                    value=Name(id='var_name', ctx=Load()),
+                                                    conversion=-1),
+                                                  Constant(value="'")]),
+                                              Attribute(
+                                                value=Name(id='Severity', ctx=Load()),
+                                                attr='ERROR',
+                                                ctx=Load()),
+                                              Constant(value='TYPE_MISMATCH')],
+                                            keywords=[
+                                              keyword(
+                                                arg='symbol',
+                                                value=Name(id='var_name', ctx=Load()))]),
+                                          attr='to_dict',
+                                          ctx=Load()),
+                                        args=[],
+                                        keywords=[])],
+                                    keywords=[]))],
+                              orelse=[
+                                If(
+                                  test=BoolOp(
+                                    op=And(),
+                                    values=[
+                                      Compare(
+                                        left=Name(id='v_type', ctx=Load()),
+                                        ops=[
+                                          Eq()],
+                                        comparators=[
+                                          Constant(value='char')]),
+                                      UnaryOp(
+                                        op=Not(),
+                                        operand=BoolOp(
+                                          op=Or(),
+                                          values=[
+                                            Call(
+                                              func=Attribute(
+                                                value=Name(id='val', ctx=Load()),
+                                                attr='startswith',
+                                                ctx=Load()),
+                                              args=[
+                                                Constant(value="'")],
+                                              keywords=[]),
+                                            Call(
+                                              func=Attribute(
+                                                value=Name(id='val', ctx=Load()),
+                                                attr='isdigit',
+                                                ctx=Load()),
+                                              args=[],
+                                              keywords=[])]))]),
+                                  body=[
+                                    Expr(
+                                      value=Call(
+                                        func=Attribute(
+                                          value=Name(id='problems', ctx=Load()),
+                                          attr='append',
+                                          ctx=Load()),
+                                        args=[
+                                          Call(
+                                            func=Attribute(
+                                              value=Call(
+                                                func=Name(id='Problem', ctx=Load()),
+                                                args=[
+                                                  Name(id='i', ctx=Load()),
+                                                  Call(
+                                                    func=Attribute(
+                                                      value=Name(id='assign_match', ctx=Load()),
+                                                      attr='start',
+                                                      ctx=Load()),
+                                                    args=[
+                                                      Constant(value=2)],
+                                                    keywords=[]),
+                                                  JoinedStr(
+                                                    values=[
+                                                      Constant(value="Type mismatch: '"),
+                                                      FormattedValue(
+                                                        value=Name(id='var_name', ctx=Load()),
+                                                        conversion=-1),
+                                                      Constant(value="' is a char but assigned a non-char value")]),
+                                                  Attribute(
+                                                    value=Name(id='Severity', ctx=Load()),
+                                                    attr='WARNING',
+                                                    ctx=Load()),
+                                                  Constant(value='TYPE_COERCION')],
+                                                keywords=[]),
+                                              attr='to_dict',
+                                              ctx=Load()),
+                                            args=[],
+                                            keywords=[])],
+                                        keywords=[]))],
+                                  orelse=[])])],
+                          orelse=[])],
+                      orelse=[])],
+                  orelse=[]),
+                Assign(
+                  targets=[
+                    Name(id='potential_usages', ctx=Store())],
+                  value=Call(
+                    func=Attribute(
+                      value=Name(id='re', ctx=Load()),
+                      attr='findall',
+                      ctx=Load()),
+                    args=[
+                      Name(id='ident_pattern', ctx=Load()),
+                      Name(id='clean_line', ctx=Load())],
+                    keywords=[])),
+                For(
+                  target=Name(id='usage', ctx=Store()),
+                  iter=Name(id='potential_usages', ctx=Load()),
+                  body=[
+                    If(
+                      test=BoolOp(
+                        op=And(),
+                        values=[
+                          Compare(
+                            left=Name(id='usage', ctx=Load()),
+                            ops=[
+                              NotIn()],
+                            comparators=[
+                              Attribute(
+                                value=Name(id='self', ctx=Load()),
+                                attr='reserved_keywords',
+                                ctx=Load())]),
+                          Compare(
+                            left=Name(id='usage', ctx=Load()),
+                            ops=[
+                              NotIn()],
+                            comparators=[
+                              Attribute(
+                                value=Name(id='self', ctx=Load()),
+                                attr='valid_types',
+                                ctx=Load())])]),
+                      body=[
+                        If(
+                          test=BoolOp(
+                            op=And(),
+                            values=[
+                              Name(id='decl_match', ctx=Load()),
+                              Compare(
+                                left=Name(id='usage', ctx=Load()),
+                                ops=[
+                                  Eq()],
+                                comparators=[
+                                  Call(
+                                    func=Attribute(
+                                      value=Name(id='decl_match', ctx=Load()),
+                                      attr='group',
+                                      ctx=Load()),
+                                    args=[
+                                      Constant(value=2)],
+                                    keywords=[])])]),
+                          body=[
+                            Continue()],
+                          orelse=[]),
+                        Assign(
+                          targets=[
+                            Name(id='found_decl', ctx=Store())],
+                          value=Constant(value=False)),
+                        For(
+                          target=Name(id='scope', ctx=Store()),
+                          iter=Call(
+                            func=Name(id='reversed', ctx=Load()),
+                            args=[
+                              Name(id='scope_stack', ctx=Load())],
+                            keywords=[]),
+                          body=[
+                            If(
+                              test=Compare(
+                                left=Name(id='usage', ctx=Load()),
+                                ops=[
+                                  In()],
+                                comparators=[
+                                  Subscript(
+                                    value=Name(id='scope', ctx=Load()),
+                                    slice=Constant(value='symbols'),
+                                    ctx=Load())]),
+                              body=[
+                                Assign(
+                                  targets=[
+                                    Name(id='found_decl', ctx=Store())],
+                                  value=Constant(value=True)),
+                                Break()],
+                              orelse=[])],
+                          orelse=[]),
+                        If(
+                          test=Name(id='found_decl', ctx=Load()),
+                          body=[
+                            If(
+                              test=Compare(
+                                left=Name(id='usage', ctx=Load()),
+                                ops=[
+                                  In()],
+                                comparators=[
+                                  Name(id='all_symbols', ctx=Load())]),
+                              body=[
+                                Assign(
+                                  targets=[
+                                    Subscript(
+                                      value=Subscript(
+                                        value=Name(id='all_symbols', ctx=Load()),
+                                        slice=Name(id='usage', ctx=Load()),
+                                        ctx=Load()),
+                                      slice=Constant(value='used'),
+                                      ctx=Store())],
+                                  value=Constant(value=True)),
+                                If(
+                                  test=BoolOp(
+                                    op=And(),
+                                    values=[
+                                      UnaryOp(
+                                        op=Not(),
+                                        operand=Subscript(
+                                          value=Subscript(
+                                            value=Name(id='all_symbols', ctx=Load()),
+                                            slice=Name(id='usage', ctx=Load()),
+                                            ctx=Load()),
+                                          slice=Constant(value='initialized'),
+                                          ctx=Load())),
+                                      Compare(
+                                        left=Subscript(
+                                          value=Subscript(
+                                            value=Name(id='all_symbols', ctx=Load()),
+                                            slice=Name(id='usage', ctx=Load()),
+                                            ctx=Load()),
+                                          slice=Constant(value='kind'),
+                                          ctx=Load()),
+                                        ops=[
+                                          Eq()],
+                                        comparators=[
+                                          Constant(value='variable')])]),
+                                  body=[
+                                    Expr(
+                                      value=Call(
+                                        func=Attribute(
+                                          value=Name(id='problems', ctx=Load()),
+                                          attr='append',
+                                          ctx=Load()),
+                                        args=[
+                                          Call(
+                                            func=Attribute(
+                                              value=Call(
+                                                func=Name(id='Problem', ctx=Load()),
+                                                args=[
+                                                  Name(id='i', ctx=Load()),
+                                                  Constant(value=0),
+                                                  JoinedStr(
+                                                    values=[
+                                                      Constant(value="Variable '"),
+                                                      FormattedValue(
+                                                        value=Name(id='usage', ctx=Load()),
+                                                        conversion=-1),
+                                                      Constant(value="' might be uninitialized when used here")]),
+                                                  Attribute(
+                                                    value=Name(id='Severity', ctx=Load()),
+                                                    attr='WARNING',
+                                                    ctx=Load()),
+                                                  Constant(value='INIT_UNINITIALIZED')],
+                                                keywords=[
+                                                  keyword(
+                                                    arg='symbol',
+                                                    value=Name(id='usage', ctx=Load())),
+                                                  keyword(
+                                                    arg='suggestion',
+                                                    value=JoinedStr(
+                                                      values=[
+                                                        Constant(value="Initialize '"),
+                                                        FormattedValue(
+                                                          value=Name(id='usage', ctx=Load()),
+                                                          conversion=-1),
+                                                        Constant(value="' (e.g., int "),
+                                                        FormattedValue(
+                                                          value=Name(id='usage', ctx=Load()),
+                                                          conversion=-1),
+                                                        Constant(value=' = 0;)')]))]),
+                                              attr='to_dict',
+                                              ctx=Load()),
+                                            args=[],
+                                            keywords=[])],
+                                        keywords=[]))],
+                                  orelse=[])],
+                              orelse=[])],
+                          orelse=[])],
+                      orelse=[])],
+                  orelse=[])],
+              orelse=[]),
+            If(
+              test=Compare(
+                left=Name(id='brace_level', ctx=Load()),
+                ops=[
+                  Gt()],
+                comparators=[
+                  Constant(value=0)]),
+              body=[
+                Assign(
+                  targets=[
+                    Name(id='last_open', ctx=Store())],
+                  value=Subscript(
+                    value=Name(id='open_braces_pos', ctx=Load()),
+                    slice=UnaryOp(
+                      op=USub(),
+                      operand=Constant(value=1)),
+                    ctx=Load())),
+                Expr(
+                  value=Call(
+                    func=Attribute(
+                      value=Name(id='problems', ctx=Load()),
+                      attr='append',
+                      ctx=Load()),
+                    args=[
+                      Call(
+                        func=Attribute(
+                          value=Call(
+                            func=Name(id='Problem', ctx=Load()),
+                            args=[
+                              Call(
+                                func=Name(id='len', ctx=Load()),
+                                args=[
+                                  Name(id='lines', ctx=Load())],
+                                keywords=[]),
+                              Constant(value=0),
+                              JoinedStr(
+                                values=[
+                                  Constant(value="Unexpected EOF: Unclosed block '"),
+                                  FormattedValue(
+                                    value=Subscript(
+                                      value=Subscript(
+                                        value=Name(id='scope_stack', ctx=Load()),
+                                        slice=UnaryOp(
+                                          op=USub(),
+                                          operand=Constant(value=1)),
+                                        ctx=Load()),
+                                      slice=Constant(value='name'),
+                                      ctx=Load()),
+                                    conversion=-1),
+                                  Constant(value="' (opened at line "),
+                                  FormattedValue(
+                                    value=Name(id='last_open', ctx=Load()),
+                                    conversion=-1),
+                                  Constant(value=')')]),
+                              Attribute(
+                                value=Name(id='Severity', ctx=Load()),
+                                attr='ERROR',
+                                ctx=Load()),
+                              Constant(value='SYNTAX_UNCLOSED_BRACE')],
+                            keywords=[
+                              keyword(
+                                arg='suggestion',
+                                value=Constant(value="Add missing '}' at the end of the file"))]),
+                          attr='to_dict',
+                          ctx=Load()),
+                        args=[],
+                        keywords=[])],
+                    keywords=[]))],
+              orelse=[]),
+            If(
+              test=Compare(
+                left=Name(id='parens_level', ctx=Load()),
+                ops=[
+                  Gt()],
+                comparators=[
+                  Constant(value=0)]),
+              body=[
+                Expr(
+                  value=Call(
+                    func=Attribute(
+                      value=Name(id='problems', ctx=Load()),
+                      attr='append',
+                      ctx=Load()),
+                    args=[
+                      Call(
+                        func=Attribute(
+                          value=Call(
+                            func=Name(id='Problem', ctx=Load()),
+                            args=[
+                              Call(
+                                func=Name(id='len', ctx=Load()),
+                                args=[
+                                  Name(id='lines', ctx=Load())],
+                                keywords=[]),
+                              Constant(value=0),
+                              Constant(value="Mismatched parentheses: expected ')'"),
+                              Attribute(
+                                value=Name(id='Severity', ctx=Load()),
+                                attr='ERROR',
+                                ctx=Load()),
+                              Constant(value='SYNTAX_UNCLOSED_PAREN')],
+                            keywords=[]),
+                          attr='to_dict',
+                          ctx=Load()),
+                        args=[],
+                        keywords=[])],
+                    keywords=[]))],
+              orelse=[]),
+            For(
+              target=Tuple(
+                elts=[
+                  Name(id='name', ctx=Store()),
+                  Name(id='info', ctx=Store())],
+                ctx=Store()),
+              iter=Call(
+                func=Attribute(
+                  value=Name(id='all_symbols', ctx=Load()),
+                  attr='items',
+                  ctx=Load()),
+                args=[],
+                keywords=[]),
+              body=[
+                If(
+                  test=BoolOp(
+                    op=And(),
+                    values=[
+                      UnaryOp(
+                        op=Not(),
+                        operand=Subscript(
+                          value=Name(id='info', ctx=Load()),
+                          slice=Constant(value='used'),
+                          ctx=Load())),
+                      Compare(
+                        left=Subscript(
+                          value=Name(id='info', ctx=Load()),
+                          slice=Constant(value='kind'),
+                          ctx=Load()),
+                        ops=[
+                          Eq()],
+                        comparators=[
+                          Constant(value='variable')]),
+                      Compare(
+                        left=Name(id='name', ctx=Load()),
+                        ops=[
+                          NotEq()],
+                        comparators=[
+                          Constant(value='main')])]),
+                  body=[
+                    Expr(
+                      value=Call(
+                        func=Attribute(
+                          value=Name(id='problems', ctx=Load()),
+                          attr='append',
+                          ctx=Load()),
+                        args=[
+                          Call(
+                            func=Attribute(
+                              value=Call(
+                                func=Name(id='Problem', ctx=Load()),
+                                args=[
+                                  Subscript(
+                                    value=Name(id='info', ctx=Load()),
+                                    slice=Constant(value='line'),
+                                    ctx=Load()),
+                                  Constant(value=0),
+                                  JoinedStr(
+                                    values=[
+                                      Constant(value="Local variable '"),
+                                      FormattedValue(
+                                        value=Name(id='name', ctx=Load()),
+                                        conversion=-1),
+                                      Constant(value="' is unused")]),
+                                  Attribute(
+                                    value=Name(id='Severity', ctx=Load()),
+                                    attr='INFO',
+                                    ctx=Load()),
+                                  Constant(value='REF_UNUSED')],
+                                keywords=[
+                                  keyword(
+                                    arg='symbol',
+                                    value=Name(id='name', ctx=Load())),
+                                  keyword(
+                                    arg='suggestion',
+                                    value=Constant(value='Remove or use the declared variable'))]),
+                              attr='to_dict',
+                              ctx=Load()),
+                            args=[],
+                            keywords=[])],
+                        keywords=[]))],
+                  orelse=[])],
+              orelse=[]),
+            Return(
+              value=Name(id='problems', ctx=Load()))],
+          decorator_list=[],
+          returns=Subscript(
+            value=Name(id='List', ctx=Load()),
+            slice=Subscript(
+              value=Name(id='Dict', ctx=Load()),
+              slice=Tuple(
+                elts=[
+                  Name(id='str', ctx=Load()),
+                  Name(id='Any', ctx=Load())],
+                ctx=Load()),
+              ctx=Load()),
+            ctx=Load()))],
+      decorator_list=[])],
+  type_ignores=[])

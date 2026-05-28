@@ -7,7 +7,7 @@ LDFLAGS = -shared
 
 # Source files
 BRIDGE_SRC = bridge.c
-SYMBOL_TABLE_SRC = ../../src/symbol_table.c ../../src/hash_table.c ../../src/scope.c ../../src/data_types.c
+SYMBOL_TABLE_SRC = ../../src/symbol_table.c ../../src/hash_table.c ../../src/scope.c ../../src/data_types.c ../../src/parse_tree.c ../../src/error_detection.c
 
 # Output
 TARGET_LIB = symbol_table.dll

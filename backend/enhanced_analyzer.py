@@ -1,7 +1,7 @@
 import re
 import uuid
 from enum import Enum
-from typing import List, Dict, Any, Optional, Set
+from typing import List, Dict, Any
 ##
 class Severity(Enum):
     ERROR = "error"
