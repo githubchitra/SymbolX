@@ -5,7 +5,7 @@ import ScopeTree from './components/ScopeTree';
 import CodeParser from './components/CodeParser';
 import ProblemsPanel from './components/ProblemsPanel';
 import AdvancedErrorDetection from './components/AdvancedErrorDetection';
-import ParsingTab from './components/ParsingTab';
+import CFGParser from './components/CFGParser';
 import { wsManager, symbolTableAPI, parseAPI } from './services/api';
 
 function App() {
@@ -203,7 +203,7 @@ function App() {
       name: 'Parsing',
       icon: Binary,
       component: (
-        <ParsingTab />
+        <CFGParser />
       )
     },
     {
