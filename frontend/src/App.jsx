@@ -4,7 +4,6 @@ import SymbolTableGrid from './components/SymbolTableGrid';
 import ScopeTree from './components/ScopeTree';
 import CodeParser from './components/CodeParser';
 import ProblemsPanel from './components/ProblemsPanel';
-import AdvancedErrorDetection from './components/AdvancedErrorDetection';
 import CFGParser from './components/CFGParser';
 import { wsManager, symbolTableAPI, parseAPI } from './services/api';
 
@@ -16,7 +15,6 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
   const [problems, setProblems] = useState([]);
-  const [parseTree, setParseTree] = useState(null);
   const parserRef = useRef(null);
 
   const [code, setCode] = useState('');
@@ -121,11 +119,7 @@ function App() {
     if (results.problems) {
       setProblems(results.problems);
     }
-    
-    // Set parse tree data if available
-    if (results.parseTree) {
-      setParseTree(results.parseTree);
-    }
+
 
     fetchSymbols();
     // Only switch to symbols if there are no errors, otherwise stay on problems if they exist
@@ -204,18 +198,6 @@ function App() {
       icon: Binary,
       component: (
         <CFGParser />
-      )
-    },
-    {
-      id: 'errors',
-      name: 'Error Detection',
-      icon: AlertCircle,
-      component: (
-        <AdvancedErrorDetection
-          code={code}
-          parseResults={parseTree}
-          symbols={symbols}
-        />
       )
     },
     {

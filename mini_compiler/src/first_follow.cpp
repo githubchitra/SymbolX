@@ -1,6 +1,7 @@
 #include "first_follow.h"
 #include <iostream>
 #include <algorithm>
+#include <sstream>
 
 FirstFollowSets::FirstFollowSets(std::shared_ptr<CFGGrammar> grammar)
     : grammar(grammar), firstComputed(false), followComputed(false) {}

@@ -7,21 +7,13 @@
 #include <memory>
 #include <stack>
 #include <iostream>
+#include "ast_node.h"
 
 enum class SymbolKind {
     VARIABLE,
     FUNCTION,
     PARAMETER,
     TYPE,
-    UNKNOWN
-};
-
-enum class DataType {
-    VOID,
-    INT,
-    FLOAT,
-    CHAR,
-    STRING,
     UNKNOWN
 };
 

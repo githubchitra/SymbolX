@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <functional>
 
 GrammarInterface::GrammarInterface() : grammarLoaded(false), tableBuilt(false) {
     initializeComponents();
